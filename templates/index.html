@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> 
+    DERM VISION 
+    
+
+  </title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(-45deg, #74ebd5, #ACB6E5, #74ebd5, #ACB6E5);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    h1 { color: #333; text-align: center; }
+
+    .section { display: none; width: 100%; }
+    .active { display: block; }
+
+    /* Login Container */
+    .login-container {
+      background-color: rgba(255,255,255,0.95);
+      padding: 40px 50px;
+      border-radius: 20px;
+      box-shadow: 0px 10px 30px rgba(0,0,0,0.15);
+      text-align: center;
+      width: 350px;
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .login-container input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    .btn {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      background-color: #6C63FF;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 10px auto;
+      display: block;
+    }
+    .btn:hover { background-color: #5751d6; }
+    a { color: #6C63FF; cursor: pointer; font-size: 14px; }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      width: 80%;
+      max-width: 1000px;
+      margin: 20px auto;
+    }
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0px 15px 30px rgba(0,0,0,0.25), 0 0 15px rgba(108, 99, 255, 0.7);
+      background: #f9fbff;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 20px 30px;
+      border-radius: 15px;
+      box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 350px;
+      margin: auto;
+    }
+    img {
+      max-width: 100%;
+      margin-top: 15px;
+      border-radius: 10px;
+      box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+    }
+    .doctor-animation {
+      width: 200px; height: 200px;
+      margin: 10px auto 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-15px);} }
+
+    #infoBox {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0px 5px 25px rgba(0,0,0,0.3);
+      width: 60%;
+      max-width: 500px;
+      text-align: left;
+      z-index: 1000;
+    }
+    #infoBox h2 { color: #1565c0; margin-top:0; }
+    #infoBox button {
+      background: #ef5350;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 10px;
+      float: right;
+      cursor: pointer;
+    }
+
+    .welcome-text {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 1.3em;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+   <center>
+  <div id="loginSection" class="section active">
+    <div class="login-container">
+      <h1>🔐 DERM VISION Login</h1>
+      <input type="text" id="loginUsername" placeholder="Username" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button class="btn" onclick="login()">Login</button>
+      <p>Don't have an account? <a onclick="toggleSignup(true)">Sign up</a></p>
+
+      
+    </div>
+  </div>
+
+  <!-- SIGNUP -->
+  <div id="signupSection" class="section">
+    <div class="login-container">
+      <h1>📝 Create Account</h1>
+      <input type="text" id="signupUsername" placeholder="Choose Username" required>
+      <input type="password" id="signupPassword" placeholder="Choose Password" required>
+      <button class="btn" onclick="signup()">Sign Up</button>
+      <p>Already have an account? <a onclick="toggleSignup(false)">Login</a></p>
+    </div>
+  </div>
+  </center>
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="section">
+    <button class="btn" style="width:100px; float:right; margin-right:50px;" onclick="logout()">Logout</button>
+    <h1>
+       <center>
+        🩺 DERM VISION <br> 
+
+         Skin Disease Predictor 
+         
+    </center>
+  </h1>
+    <p id="welcomeUser" class="welcome-text"></p>
+    <div id="doctor" class="doctor-animation"></div>
+
+    <div class="dashboard">
+      <div class="card" onclick="showInfo('Actinic keratosis')">Actinic keratosis</div>
+      <div class="card" onclick="showInfo('Atopic Dermatitis')">Atopic Dermatitis</div>
+      <div class="card" onclick="showInfo('Benign keratosis')">Benign keratosis</div>
+      <div class="card" onclick="showInfo('Dermatofibroma')">Dermatofibroma</div>
+      <div class="card" onclick="showInfo('Melanocytic nevus')">Melanocytic nevus</div>
+      <div class="card" onclick="showInfo('Melanoma')">Melanoma</div>
+      <div class="card" onclick="showInfo('Squamous cell carcinoma')">Squamous cell carcinoma</div>
+      <div class="card" onclick="showInfo('Tinea Ringworm Candidiasis')">Tinea Ringworm Candidiasis</div>
+      <div class="card" onclick="showInfo('Vascular lesion')">Vascular lesion</div>
+    </div>
+    <button class="btn" onclick="showSection('predictor')">Go to Predictor</button>
+  </div>
+
+  <!-- PREDICTOR -->
+  <div id="predictor" class="section">
+    <div class="container">
+      <h1>Skin Disease Predictor</h1>
+      <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required onchange="previewImage(event)">
+        <br>
+        <button type="submit">Predict</button>
+      </form>
+      <img id="preview" src="#" style="display:none;"/>
+      {% if prediction %}
+        <div class="speech-bubble">🩺 Doctor says: {{ prediction }}</div>
+        <script>
+          const msg = new SpeechSynthesisUtterance("The predicted skin disease is {{ prediction }}");
+          msg.lang = "en-IN";
+          window.speechSynthesis.speak(msg);
+        </script>
+      {% endif %}
+      <button class="btn" onclick="showSection('dashboard')">⬅ Back to Dashboard</button>
+    </div>
+  </div>
+
+  <!-- INFO POPUP -->
+  <div id="infoBox">
+    <button onclick="closeInfo()">Close</button>
+    <h2 id="diseaseTitle"></h2>
+    <p id="diseaseDesc"></p>
+  </div>
+
+  <script>
+    function showSection(id){
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+    function toggleSignup(isSignup){ showSection(isSignup ? 'signupSection' : 'loginSection'); }
+
+    function signup(){
+      const u=document.getElementById('signupUsername').value.trim();
+      const p=document.getElementById('signupPassword').value.trim();
+      if(!u||!p) return alert("Please fill all fields");
+      let users=JSON.parse(localStorage.getItem('users'))||{};
+      if(users[u]) return alert("Username already exists!");
+      users[u]=p; localStorage.setItem('users',JSON.stringify(users));
+      alert("Signup successful! Please login."); toggleSignup(false);
+    }
+
+    function login(){
+      const u=document.getElementById('loginUsername').value.trim();
+      const p=document.getElementById('loginPassword').value.trim();
+      let users=JSON.parse(localStorage.getItem('users'))||{};
+      if(users[u]===p){
+        localStorage.setItem('loggedInUser',u);
+        showDashboard(u);
+      } else alert("Invalid username or password!");
+    }
+
+    function logout(){
+      localStorage.removeItem('loggedInUser');
+      showSection('loginSection');
+    }
+
+    function showDashboard(user){
+      showSection('dashboard');
+      document.getElementById('welcomeUser').innerText = `👋 Welcome, ${user}!`;
+      const speech = new SpeechSynthesisUtterance(`Welcome ${user}, to DERM Vision!`);
+      speech.lang="en-IN";
+      window.speechSynthesis.speak(speech);
+    }
+
+    window.onload=function(){
+      const user=localStorage.getItem('loggedInUser');
+      if(user) showDashboard(user);
+    };
+
+    var animation = bodymovin.loadAnimation({
+      container: document.getElementById('doctor'),
+      renderer: 'svg', loop: true, autoplay: true,
+      path: 'https://lottie.host/ea1a39f3-c9b3-4d93-b83a-cf905d86d788/kvl4BvUGUJ.json'
+    });
+
+    function previewImage(e){
+      var p=document.getElementById('preview');
+      p.src=URL.createObjectURL(e.target.files[0]);
+      p.style.display='block';
+    }
+
+    const diseaseInfo={
+      "Actinic keratosis":"A rough, scaly patch caused by sun exposure.",
+      "Atopic Dermatitis":"A chronic itchy rash linked to allergies.",
+      "Benign keratosis":"Non-cancerous growth, brown and slightly raised.",
+      "Dermatofibroma":"A small, firm bump on skin caused by fibrous tissue.",
+      "Melanocytic nevus":"Moles, harmless unless they change color/size.",
+      "Melanoma":"Serious skin cancer; early detection critical.",
+      "Squamous cell carcinoma":"Scaly red patches or sores; a skin cancer.",
+      "Tinea Ringworm Candidiasis":"Fungal infection causing circular rashes.",
+      "Vascular lesion":"Abnormal blood vessels appearing as red marks."
+    };
+
+    function showInfo(name){
+      document.getElementById('diseaseTitle').innerText=name;
+      const desc=diseaseInfo[name];
+      document.getElementById('diseaseDesc').innerText=desc;
+      document.getElementById('infoBox').style.display='block';
+      const msg=new SpeechSynthesisUtterance(name+". "+desc);
+      msg.lang="en-IN"; window.speechSynthesis.speak(msg);
+    }
+    function closeInfo(){ document.getElementById('infoBox').style.display='none'; }
+  </script>
+</body>
+</html>
